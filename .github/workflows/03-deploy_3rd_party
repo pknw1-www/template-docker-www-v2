@@ -1,9 +1,13 @@
-name: 03 -  Deploy 4rd Party Image on Merge to Main
+name: 03 -  Deploy 3rd Party Image on Merge to Main
 
 on:
-  push:
-    branches:
-      - 'main'
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'deploy after build'
+        required: true
+        type: boolean
+        default: true
 
 jobs:
   docker_deploy:
