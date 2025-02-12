@@ -51,7 +51,7 @@ jobs:
           token: ${{ secrets.GH_ORG_TOKEN }}
       - uses: action-pack/set-variable@v1
         with:
-          name: 'app_tytpe'
+          name: 'app_type'
           value: ${{ inputs.app_type }}
           token: ${{ secrets.GH_ORG_TOKEN }}
       - uses: action-pack/set-variable@v1
@@ -59,6 +59,11 @@ jobs:
           name: 'folder_name'
           value: ${{ inputs.folder_name }}
           token: ${{ secrets.GH_ORG_TOKEN }}
+      - name: enable 3rd party deploy action
+        if: ${{ inputs.app_type == '3rd party' }}
+        run: |
+          mv .github/workflows/03-build.yml .github/workflows/03-build
+          mv .github/workflows/03-deploy_3rd_party .github/workflows/03-deploy_3rd_party.yml
       - name: create docker-compose
         run: | 
           cp deploy/docker-compose.yml deploy/docker-compose-dev.yml
