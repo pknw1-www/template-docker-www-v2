@@ -1,9 +1,6 @@
 name: 03 - Build & Deploy
 
 on:
-  push:
-    branches:
-      - 'xmain'
   workflow_dispatch:
     inputs:
       deploy:
@@ -29,6 +26,7 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: fix banner
+        if: ${{ vars.app_type == 'mobirise' }}
         run: |
           sed -i 's/display: flex/display: none/g' build/publish/*html
       - name: Build and push Docker images
