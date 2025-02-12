@@ -1,0 +1,15 @@
+services:
+  caddy-deploy-dev:
+    networks:
+      - proxy
+    image: pknw1/product.pknw1.co.uk:dev
+    container_name: caddy-dev-product.pknw1.co.uk
+    hostname: caddy-dev-product.pknw1.co.uk
+    environment:
+      - VIRTUAL_HOST=dev-product.pknw1.co.uk
+      - VIRTUAL_PORT=80
+
+networks:
+  proxy:
+    external: true
+    name: proxy

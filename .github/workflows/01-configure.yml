@@ -1,0 +1,52 @@
+name: 01 - Configure
+
+on:
+  workflow_dispatch:
+    inputs:
+      folder_name:
+        description: 'folder name'
+        default: 'test-www'
+      url:
+        description: 'URL'
+        default: '.pknw1.co.uk'
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_ORG_TOKEN }}
+      - name: Get repository name
+        id: repo-name
+        uses: MariachiBear/get-repo-name-action@v1.1.0
+        with:
+          with-owner: 'false'
+          string-case: 'lowercase'
+      - uses: action-pack/set-variable@v1
+        with:
+          name: 'url'
+          value: ${{ inputs.url }}
+          token: ${{ secrets.GH_ORG_TOKEN }}
+      - uses: action-pack/set-variable@v1
+        with:
+          name: 'folder_name'
+          value: ${{ inputs.folder_name }}
+          token: ${{ secrets.GH_ORG_TOKEN }}
+      - name: create docker-compose
+        run: | 
+          cp deploy/docker-compose.yml deploy/docker-compose-dev.yml
+          sed -i 's/REPO_NAME/${{ steps.repo-name.outputs.repository-name }}/g' deploy/docker-compose.yml
+          sed -i 's/REPO_NAME/${{ steps.repo-name.outputs.repository-name }}-dev/g' deploy/docker-compose-dev.yml
+          sed -i 's/DOCKER_IMAGE/${{ inputs.url }}/g' deploy/docker-compose*
+          sed -i 's/latest/dev/g' deploy/docker-compose-dev.yml
+          sed -i 's/URL/${{ inputs.url }}/g' deploy/docker-compose.yml
+          sed -i 's/URL/dev-${{ inputs.url }}/g' deploy/docker-compose-dev.yml
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Updated compose files
+          push_options: '--force'
+          branch: main
