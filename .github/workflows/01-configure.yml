@@ -20,7 +20,13 @@ on:
           - mobirise
           - html
           - flask
-
+      docker_image_owner:
+        description: 'docker image owner'
+        default: 'pknw1'
+      eocker_image_name:
+        description: 'docker image name'
+        default: '.pknw1.co.uk'
+        
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -57,7 +63,8 @@ jobs:
           cp deploy/docker-compose.yml deploy/docker-compose-dev.yml
           sed -i 's/REPO_NAME/${{ steps.repo-name.outputs.repository-name }}/g' deploy/docker-compose.yml
           sed -i 's/REPO_NAME/${{ steps.repo-name.outputs.repository-name }}-dev/g' deploy/docker-compose-dev.yml
-          sed -i 's/DOCKER_IMAGE/${{ inputs.url }}/g' deploy/docker-compose*
+          sed -i 's/DOCKER_OWNER/${{ inputs.docker_image_owner }}/g' deploy/docker-compose*
+          sed -i 's/DOCKER_IMAGE/${{ inputs.docker_image }}/g' deploy/docker-compose*
           sed -i 's/80/${{ inputs.port }}/g' deploy/docker-compose*
           sed -i 's/latest/dev/g' deploy/docker-compose-dev.yml
           sed -i 's/URL/${{ inputs.url }}/g' deploy/docker-compose.yml
