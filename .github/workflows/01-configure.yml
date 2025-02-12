@@ -20,6 +20,7 @@ on:
           - mobirise
           - html
           - flask
+          - 3rd Party
       docker_image_owner:
         description: 'docker image owner'
         default: 'pknw1'
