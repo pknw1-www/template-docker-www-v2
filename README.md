@@ -8,11 +8,24 @@
 - [X] DEV url will be set to dev-mysite.pknw1.co.uk
 - [X] Run the "Install" action to create the server folder, compose files and config folder
 
-## publish
+## publish (Mobirise)
 - [X] clone to local machine
 - [X] checkout a new branch
 - [X] publish web content into the ```publish``` folder
 - [x] verify and merge
+
+## publish (python)
+- [X] clone to local machine
+- [X] checkout a new branch
+- [X] copy content into the ```build``` folder
+- [x] verify and merge
+
+## publish (3rd Party)
+- [X] clone to local machine
+- [X] checkout a new branch
+- [X] customise any docker-compose/other changes
+- [X] verify and merg
+- [X] run stage 3 deploy action
 
 ## build
 - [X] Run "Build and Deploy" to build the container, push to dockerhub and pull image on server
