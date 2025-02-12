@@ -20,7 +20,7 @@ on:
           - mobirise
           - html
           - flask
-          - 3rd Party
+          - 3rdParty
       docker_image_owner:
         description: 'docker image owner'
         default: 'pknw1'
@@ -60,7 +60,7 @@ jobs:
           value: ${{ inputs.folder_name }}
           token: ${{ secrets.GH_ORG_TOKEN }}
       - name: enable 3rd party deploy action
-        if: ${{ inputs.app_type == '3rd party' }}
+        if: ${{ inputs.app_type == '3rdParty' }}
         run: |
           mv .github/workflows/03-build.yml .github/workflows/03-build
           mv .github/workflows/03-deploy_3rd_party .github/workflows/03-deploy_3rd_party.yml
