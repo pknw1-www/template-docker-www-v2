@@ -74,8 +74,8 @@ jobs:
           token: ${{ secrets.GH_ORG_TOKEN }}
       - name: create updated template zip
         run: |
-          cd deploy/${{ inputs.repository_type }}
-          zip -r ../zipFile.zip *
+          cd deploy/templates/${{ inputs.repository_type }}
+          zip -r ../../zipFile.zip *
 
 
   create_repository:
