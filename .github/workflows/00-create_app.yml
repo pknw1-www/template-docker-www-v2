@@ -75,7 +75,7 @@ jobs:
       - name: create updated template zip
         run: |
           cd deploy/templates/${{ inputs.repository_type }}
-          zip -r ../zipFile.zip ${{ inputs.repository_type }}
+          zip -r ../../zipFile.zip * .gitignore 
 
 
   create_repository:
